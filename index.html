@@ -18,192 +18,41 @@
       --white:  #ffffff;
       --border: #d4e5da;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
-      background: var(--light);
-      color: var(--text);
-      line-height: 1.8;
-    }
-
-    /* ──── ヘッダー ──── */
-    header {
-      background: var(--white);
-      border-bottom: 2px solid var(--accent);
-      padding: 20px 24px;
-      text-align: center;
-    }
-    header h1 {
-      font-size: 1.8rem;
-      color: var(--green);
-      letter-spacing: 0.08em;
-    }
-    header p {
-      color: var(--muted);
-      font-size: 0.85rem;
-      margin-top: 4px;
-    }
-
-    /* ──── ナビ ──── */
-    nav {
-      background: var(--green);
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      flex-wrap: wrap;
-    }
-    nav a {
-      color: var(--white);
-      text-decoration: none;
-      padding: 10px 20px;
-      font-size: 0.88rem;
-      display: inline-block;
-      transition: background 0.2s;
-    }
+    body { font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif; background: var(--light); color: var(--text); line-height: 1.8; }
+    header { background: var(--white); border-bottom: 2px solid var(--accent); padding: 20px 24px; text-align: center; }
+    header h1 { font-size: 1.8rem; color: var(--green); letter-spacing: 0.08em; }
+    header p { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+    nav { background: var(--green); display: flex; justify-content: center; flex-wrap: wrap; }
+    nav a { color: var(--white); text-decoration: none; padding: 10px 20px; font-size: 0.88rem; display: inline-block; transition: background 0.2s; }
     nav a:hover { background: rgba(255,255,255,0.15); }
-
-    /* ──── メインレイアウト ──── */
-    .container {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 32px 16px;
-      display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 32px;
-    }
-    @media (max-width: 680px) {
-      .container { grid-template-columns: 1fr; }
-    }
-
-    /* ──── 記事カード ──── */
+    .container { max-width: 860px; margin: 0 auto; padding: 32px 16px; display: grid; grid-template-columns: 1fr 280px; gap: 32px; }
+    @media (max-width: 680px) { .container { grid-template-columns: 1fr; } }
     main { display: flex; flex-direction: column; gap: 20px; }
-
-    .card {
-      background: var(--white);
-      border-radius: 12px;
-      padding: 24px;
-      border: 1px solid var(--border);
-      transition: box-shadow 0.2s;
-    }
+    .card { background: var(--white); border-radius: 12px; padding: 24px; border: 1px solid var(--border); transition: box-shadow 0.2s; }
     .card:hover { box-shadow: 0 4px 16px rgba(90,138,110,0.12); }
-
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .tag {
-      display: inline-block;
-      background: var(--light);
-      color: var(--green);
-      border: 1px solid var(--accent);
-      border-radius: 20px;
-      padding: 2px 10px;
-      font-size: 0.75rem;
-      font-weight: bold;
-    }
-    .date {
-      color: var(--muted);
-      font-size: 0.78rem;
-    }
-
-    .card h2 {
-      font-size: 1.1rem;
-      line-height: 1.5;
-      margin-bottom: 8px;
-    }
-    .card h2 a {
-      color: var(--text);
-      text-decoration: none;
-    }
+    .card-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .tag { display: inline-block; background: var(--light); color: var(--green); border: 1px solid var(--accent); border-radius: 20px; padding: 2px 10px; font-size: 0.75rem; font-weight: bold; }
+    .date { color: var(--muted); font-size: 0.78rem; }
+    .card h2 { font-size: 1.1rem; line-height: 1.5; margin-bottom: 8px; }
+    .card h2 a { color: var(--text); text-decoration: none; }
     .card h2 a:hover { color: var(--green); }
-
-    .card p {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .read-more {
-      display: inline-block;
-      margin-top: 12px;
-      font-size: 0.82rem;
-      color: var(--green);
-      text-decoration: none;
-      border-bottom: 1px solid var(--accent);
-    }
+    .card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+    .read-more { display: inline-block; margin-top: 12px; font-size: 0.82rem; color: var(--green); text-decoration: none; border-bottom: 1px solid var(--accent); }
     .read-more:hover { color: #3d6b52; }
-
-    /* ──── サイドバー ──── */
     aside { display: flex; flex-direction: column; gap: 20px; }
-
-    .widget {
-      background: var(--white);
-      border-radius: 12px;
-      padding: 20px;
-      border: 1px solid var(--border);
-    }
-    .widget h3 {
-      font-size: 0.9rem;
-      color: var(--green);
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
-      margin-bottom: 14px;
-    }
-
-    .about-text {
-      font-size: 0.83rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
+    .widget { background: var(--white); border-radius: 12px; padding: 20px; border: 1px solid var(--border); }
+    .widget h3 { font-size: 0.9rem; color: var(--green); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 14px; }
+    .about-text { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
     .category-list { list-style: none; }
-    .category-list li {
-      padding: 6px 0;
-      border-bottom: 1px dashed var(--border);
-    }
+    .category-list li { padding: 6px 0; border-bottom: 1px dashed var(--border); }
     .category-list li:last-child { border-bottom: none; }
-    .category-list a {
-      color: var(--text);
-      text-decoration: none;
-      font-size: 0.85rem;
-      display: flex;
-      justify-content: space-between;
-    }
+    .category-list a { color: var(--text); text-decoration: none; font-size: 0.85rem; display: flex; justify-content: space-between; }
     .category-list a:hover { color: var(--green); }
-    .cat-count {
-      background: var(--light);
-      color: var(--muted);
-      border-radius: 10px;
-      padding: 0 8px;
-      font-size: 0.75rem;
-    }
-
-    /* ── アフィリエイトバナーエリア ── */
-    .affiliate-box {
-      background: var(--light);
-      border: 1px dashed var(--accent);
-      border-radius: 8px;
-      padding: 14px;
-      font-size: 0.78rem;
-      color: var(--muted);
-      text-align: center;
-      line-height: 1.5;
-    }
+    .cat-count { background: var(--light); color: var(--muted); border-radius: 10px; padding: 0 8px; font-size: 0.75rem; }
+    .affiliate-box { background: var(--light); border: 1px dashed var(--accent); border-radius: 8px; padding: 14px; font-size: 0.78rem; color: var(--muted); text-align: center; line-height: 1.5; }
     .affiliate-box strong { color: var(--green); display: block; margin-bottom: 4px; }
-
-    /* ──── フッター ──── */
-    footer {
-      background: var(--green);
-      color: rgba(255,255,255,0.8);
-      text-align: center;
-      padding: 20px;
-      font-size: 0.78rem;
-      margin-top: 40px;
-    }
+    footer { background: var(--green); color: rgba(255,255,255,0.8); text-align: center; padding: 20px; font-size: 0.78rem; margin-top: 40px; }
     footer a { color: rgba(255,255,255,0.7); text-decoration: none; margin: 0 8px; }
     footer a:hover { color: white; }
   </style>
@@ -217,84 +66,30 @@
 
 <nav>
   <a href="index.html">ホーム</a>
-  <a href="#pmdd">PMDD・体</a>
-  <a href="#career">転職・キャリア</a>
-  <a href="#tools">使ってるもの</a>
-  <a href="#about">このブログについて</a>
+  <a href="index.html">PMDD・体</a>
+  <a href="index.html">転職・キャリア</a>
+  <a href="index.html">使ってるもの</a>
+  <a href="index.html">このブログについて</a>
 </nav>
 
 <div class="container">
   <main>
 
-    <!-- 記事①（執筆中のサンプル） -->
+    <!-- article:pmdd-tensyoku -->
     <article class="card">
       <div class="card-meta">
         <span class="tag">PMDD × 転職</span>
         <span class="date">2026年4月14日</span>
       </div>
       <h2><a href="articles/pmdd-tensyoku.html">あの転職はPMDDだったかもしれない話</a></h2>
-      <p>
-        27歳のとき、突然仕事に行けなくなった。上司が嫌いなのか、職場が合わないのか、自分がおかしいのか。
-        ずっとそう思ってた。でも最近、別の可能性に気づいた。
-      </p>
+      <p>27歳のとき、突然仕事に行けなくなった。上司が嫌いなのか、職場が合わないのか、自分がおかしいのか。ずっとそう思ってた。でも最近、別の可能性に気づいた。</p>
       <a href="articles/pmdd-tensyoku.html" class="read-more">続きを読む →</a>
     </article>
 
-    <!-- 記事②（準備中プレースホルダー） -->
-    <article class="card">
-      <div class="card-meta">
-        <span class="tag">PMDD</span>
-        <span class="date">近日公開</span>
-      </div>
-      <h2><a href="#">PMDDと診断されるまでの記録</a></h2>
-      <p>
-        「月経前不快気分障害」という言葉を初めて聞いた日のこと。
-        婦人科に行くまで、どれだけ時間がかかったか。
-      </p>
-      <a href="#" class="read-more">準備中…</a>
-    </article>
-
-    <!-- 記事③（準備中プレースホルダー） -->
-    <article class="card">
-      <div class="card-meta">
-        <span class="tag">転職・キャリア</span>
-        <span class="date">近日公開</span>
-      </div>
-      <h2><a href="#">体に合う働き方を探す旅</a></h2>
-      <p>
-        リモートワーク、フリーランス、時短正社員。
-        PMDDがある体で「続けられる仕事」を考えてみた。
-      </p>
-      <a href="#" class="read-more">準備中…</a>
-    </article>
-
-  
-    <!-- article:article-2026-04-15 -->
-    <article class="card">
-      <div class="card-meta">
-        <span class="tag">情報</span>
-        <span class="date">2026年4月15日</span>
-      </div>
-      <h2><a href="articles/article-2026-04-15.html">生理前の抑うつ感がつらい。うつっぽい気持ちになる原因と対処法</a></h2>
-      <p>生理前になると、なんだか気持ちが沈んでしまう。いつもなら気にならないことでも涙が出てきたり、自分を責めたくなったり。「わたしってこんなに弱い人だったっけ？」と思…</p>
-      <a href="articles/article-2026-04-15.html" class="read-more">続きを読む →</a>
-    </article>
-  
-    <!-- article:article-2026-04-15 -->
-    <article class="card">
-      <div class="card-meta">
-        <span class="tag">情報</span>
-        <span class="date">2026年4月15日</span>
-      </div>
-      <h2><a href="articles/article-2026-04-15.html">生理前に涙もろくなるのはなぜ？突然泣いてしまう原因と上手な付き合い方</a></h2>
-      <p>生理前に涙もろくなるとは、月経開始の約1〜2週間前から感情の起伏が大きくなり、些細なことで涙が出たり、普段なら平気なことに対して過度に感情的になってしまう状態の…</p>
-      <a href="articles/article-2026-04-15.html" class="read-more">続きを読む →</a>
-    </article>
   </main>
 
   <aside>
 
-    <!-- 自己紹介 -->
     <div class="widget" id="about">
       <h3>✏️ このブログについて</h3>
       <p class="about-text">
@@ -305,18 +100,16 @@
       </p>
     </div>
 
-    <!-- カテゴリー -->
     <div class="widget">
       <h3>📂 カテゴリー</h3>
       <ul class="category-list">
-        <li><a href="#pmdd">PMDD・体のこと <span class="cat-count">1</span></a></li>
-        <li><a href="#career">転職・キャリア <span class="cat-count">1</span></a></li>
-        <li><a href="#tools">使ってるもの・試したもの <span class="cat-count">0</span></a></li>
-        <li><a href="#life">日常のきろく <span class="cat-count">0</span></a></li>
+        <li><a href="index.html">PMDD・体のこと <span class="cat-count">1</span></a></li>
+        <li><a href="index.html">転職・キャリア <span class="cat-count">1</span></a></li>
+        <li><a href="index.html">使ってるもの・試したもの <span class="cat-count">0</span></a></li>
+        <li><a href="index.html">日常のきろく <span class="cat-count">0</span></a></li>
       </ul>
     </div>
 
-    <!-- アフィリエイトスペース -->
     <div class="widget" id="tools">
       <h3>💊 使ってるもの</h3>
       <div class="affiliate-box">
