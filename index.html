@@ -17,9 +17,13 @@
     nav{background:var(--green);display:flex;justify-content:center;flex-wrap:wrap;}
     nav a{color:var(--white);text-decoration:none;padding:10px 20px;font-size:.88rem;display:inline-block;transition:background .2s;}
     nav a:hover{background:rgba(255,255,255,.15);}
+    nav a.active{background:rgba(255,255,255,.25);font-weight:bold;}
     .container{max-width:860px;margin:0 auto;padding:32px 16px;display:grid;grid-template-columns:1fr 280px;gap:32px;}
     @media(max-width:680px){.container{grid-template-columns:1fr;}}
     main{display:flex;flex-direction:column;gap:20px;}
+    .filter-label{font-size:.82rem;color:var(--muted);padding:4px 0 8px;border-bottom:1px dashed var(--border);margin-bottom:4px;}
+    .filter-label span{color:var(--green);font-weight:bold;}
+    .no-results{text-align:center;padding:40px 20px;color:var(--muted);font-size:.9rem;}
     .card{background:var(--white);border-radius:12px;padding:24px;border:1px solid var(--border);transition:box-shadow .2s;}
     .card:hover{box-shadow:0 4px 16px rgba(90,138,110,.12);}
     .card-meta{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
@@ -38,8 +42,9 @@
     .category-list{list-style:none;}
     .category-list li{padding:6px 0;border-bottom:1px dashed var(--border);}
     .category-list li:last-child{border-bottom:none;}
-    .category-list a{color:var(--text);text-decoration:none;font-size:.85rem;display:flex;justify-content:space-between;}
+    .category-list a{color:var(--text);text-decoration:none;font-size:.85rem;display:flex;justify-content:space-between;cursor:pointer;}
     .category-list a:hover{color:var(--green);}
+    .category-list a.active{color:var(--green);font-weight:bold;}
     .cat-count{background:var(--light);color:var(--muted);border-radius:10px;padding:0 8px;font-size:.75rem;}
     .affiliate-box{background:var(--light);border:1px dashed var(--accent);border-radius:8px;padding:14px;font-size:.78rem;color:var(--muted);text-align:center;line-height:1.5;}
     .affiliate-box strong{color:var(--green);display:block;margin-bottom:4px;}
@@ -56,30 +61,33 @@
 </header>
 
 <nav>
-  <a href="index.html">ホーム</a>
-  <a href="index.html">PMDD・体</a>
-  <a href="index.html">転職・キャリア</a>
-  <a href="index.html">使ってるもの</a>
-  <a href="index.html">このブログについて</a>
+  <a href="index.html" data-filter="all">ホーム</a>
+  <a href="index.html?cat=pmdd" data-filter="pmdd">PMDD・体</a>
+  <a href="index.html?cat=career" data-filter="career">転職・キャリア</a>
+  <a href="index.html?cat=tools" data-filter="tools">使ってるもの</a>
+  <a href="about.html">このブログについて</a>
 </nav>
 
 <div class="container">
-  <main>
+  <main id="main-articles">
+
+    <div class="filter-label" id="filter-label" style="display:none;">
+      <span id="filter-label-text"></span> の記事を表示中 — <a href="index.html" style="color:var(--muted);font-size:.82rem;">すべて表示</a>
+    </div>
 
     <!-- article:article-2026-04-20-0938 -->
-    <article class="card">
+    <article class="card" data-cat="pmdd" data-type="体験談">
       <div class="card-meta">
         <span class="tag">体験談</span>
         <span class="date">2026年4月20日</span>
       </div>
       <h2><a href="/articles/article-2026-04-20-0938.html">私がPMDDで「死にたい」と感じたとき|絶望感とどう向き合ったか</a></h2>
-      <p>PMDDで「もうダメかもしれない」と思った夜のこと、今でもよく覚えています。
-
-理由もなく涙が止まらなくて、何をしても楽しくなくて。そんな自分が情けなくて、「こ…</p>
+      <p>PMDDで「もうダメかもしれない」と思った夜のこと、今でもよく覚えています。理由もなく涙が止まらなくて、何をしても楽しくなくて。そんな自分が情けなくて、「こ…</p>
       <a href="/articles/article-2026-04-20-0938.html" class="read-more">続きを読む →</a>
     </article>
-<!-- article:article-2026-04-19-0904 -->
-    <article class="card">
+
+    <!-- article:article-2026-04-19-0904 -->
+    <article class="card" data-cat="pmdd" data-type="情報">
       <div class="card-meta">
         <span class="tag">情報</span>
         <span class="date">2026年4月19日</span>
@@ -88,58 +96,53 @@
       <p>わたしは数年前から、生理前になると異常に落ち込んだり、些細なことでイライラが爆発したりする症状に悩まされています。最初は「ただのうつ状態かも」と思っていましたが…</p>
       <a href="/articles/article-2026-04-19-0904.html" class="read-more">続きを読む →</a>
     </article>
-<!-- article:article-2026-04-19-0903 -->
-    <article class="card">
+
+    <!-- article:article-2026-04-19-0903 -->
+    <article class="card" data-cat="pmdd" data-type="情報">
       <div class="card-meta">
         <span class="tag">情報</span>
         <span class="date">2026年4月19日</span>
       </div>
       <h2><a href="/articles/article-2026-04-19-0903.html">私が体験した生理前の落ち込みがまさに「うつっぽい」理由を調べてみた</a></h2>
-      <p>本記事は個人の体験と公開情報をもとに書いています。医療的判断は必ず医師にご相談ください。
-
-
-
-わたしが自分の生理前の落ち込みを「うつっぽい」と表現するようにな…</p>
+      <p>わたしが自分の生理前の落ち込みを「うつっぽい」と表現するようにな…</p>
       <a href="/articles/article-2026-04-19-0903.html" class="read-more">続きを読む →</a>
     </article>
-<!-- article:article-2026-04-19-0902 -->
-    <article class="card">
+
+    <!-- article:article-2026-04-19-0902 -->
+    <article class="card" data-cat="pmdd" data-type="体験談">
       <div class="card-meta">
         <span class="tag">体験談</span>
         <span class="date">2026年4月19日</span>
       </div>
       <h2><a href="/articles/article-2026-04-19-0902.html">生理前に突然泣いてしまう私の体験談｜涙もろくなる理由を調べてみた</a></h2>
-      <p>本記事は個人の体験と公開情報をもとに書いています。医療的判断は必ず医師にご相談ください。
-
-生理前になると、些細なことで涙が止まらなくなってしまう。テレビのCM…</p>
+      <p>生理前になると、些細なことで涙が止まらなくなってしまう。テレビのCM…</p>
       <a href="/articles/article-2026-04-19-0902.html" class="read-more">続きを読む →</a>
     </article>
-<!-- article:article-2026-04-17-2 -->
-    <article class="card">
+
+    <!-- article:article-2026-04-17-2 -->
+    <article class="card" data-cat="career" data-type="体験談">
       <div class="card-meta">
         <span class="tag">体験談</span>
         <span class="date">2026年4月17日</span>
       </div>
       <h2><a href="/articles/article-2026-04-17-2.html">私が調べたPMDD体験談あの転職の決断は、実は月経前症候群が原因だったかもしれない話</a></h2>
-      <p>本記事は個人の体験と公開情報をもとに書いています。医療的判断は必ず医師にご相談ください。
-
-
-
-わたしが初めて「PMDDかもしれない」と気づいたのは、転職を繰り…</p>
+      <p>わたしが初めて「PMDDかもしれない」と気づいたのは、転職を繰り…</p>
       <a href="/articles/article-2026-04-17-2.html" class="read-more">続きを読む →</a>
     </article>
-<!-- article:article-2026-04-17 -->
-    <article class="card">
+
+    <!-- article:article-2026-04-17 -->
+    <article class="card" data-cat="pmdd" data-type="体験談">
       <div class="card-meta">
         <span class="tag">体験談</span>
         <span class="date">2026年4月17日</span>
       </div>
       <h2><a href="/articles/article-2026-04-17.html">私が調べたPMDDとPMSの決定的な違い｜似ているけど全く別物だった</a></h2>
-      <p>本記事は個人の体験と公開情報をもとに書いています。医療的判断は必ず医師にご相談ください。「生理前がしんどい」と感じていた私が、PMDDという言葉を知った…</p>
+      <p>「生理前がしんどい」と感じていた私が、PMDDという言葉を知った…</p>
       <a href="/articles/article-2026-04-17.html" class="read-more">続きを読む →</a>
     </article>
-<!-- article:article-2026-04-15 -->
-    <article class="card">
+
+    <!-- article:article-2026-04-15 -->
+    <article class="card" data-cat="pmdd" data-type="情報">
       <div class="card-meta">
         <span class="tag">情報</span>
         <span class="date">2026年4月15日</span>
@@ -148,6 +151,7 @@
       <p>生理前に涙もろくなるとは、月経開始の約1〜2週間前から感情の起伏が大きくなり、些細なことで涙が出たり、普段なら平気なことに対して過度に感情的になってしまう状態のこと…</p>
       <a href="/articles/article-2026-04-15.html" class="read-more">続きを読む →</a>
     </article>
+
   </main>
 
   <aside>
@@ -165,10 +169,10 @@
     <div class="widget">
       <h3>📂 カテゴリー</h3>
       <ul class="category-list">
-        <li><a href="index.html">PMDD・体のこと <span class="cat-count">2</span></a></li>
-        <li><a href="index.html">転職・キャリア <span class="cat-count">1</span></a></li>
-        <li><a href="index.html">使ってるもの・試したもの <span class="cat-count">0</span></a></li>
-        <li><a href="index.html">日常のきろく <span class="cat-count">0</span></a></li>
+        <li><a href="index.html?cat=pmdd" data-filter="pmdd">PMDD・体のこと <span class="cat-count" id="count-pmdd">5</span></a></li>
+        <li><a href="index.html?cat=career" data-filter="career">転職・キャリア <span class="cat-count" id="count-career">1</span></a></li>
+        <li><a href="index.html?cat=tools" data-filter="tools">使ってるもの・試したもの <span class="cat-count" id="count-tools">0</span></a></li>
+        <li><a href="index.html?cat=daily" data-filter="daily">日常のきろく <span class="cat-count" id="count-daily">0</span></a></li>
       </ul>
     </div>
 
@@ -186,14 +190,80 @@
 <footer>
   <p>© 2026 かえるのきろく</p>
   <p style="margin-top:8px;">
-    <a href="#">プライバシーポリシー</a>
-    <a href="#">免責事項</a>
-    <a href="#">お問い合わせ</a>
+    <a href="/privacy.html">プライバシーポリシー</a>
+    <a href="/disclaimer.html">免責事項</a>
+    <a href="/contact.html">お問い合わせ</a>
   </p>
   <p style="margin-top:8px;font-size:.72rem;opacity:.6;">
     ※当ブログにはアフィリエイト広告が含まれることがあります
   </p>
 </footer>
+
+<script>
+(function() {
+  const catLabels = {
+    pmdd: 'PMDD・体のこと',
+    career: '転職・キャリア',
+    tools: '使ってるもの・試したもの',
+    daily: '日常のきろく'
+  };
+
+  // URLパラメータからカテゴリ取得
+  const params = new URLSearchParams(window.location.search);
+  const currentCat = params.get('cat') || 'all';
+
+  // ナビのactiveクラス
+  document.querySelectorAll('nav a[data-filter]').forEach(a => {
+    if (a.dataset.filter === currentCat || (currentCat === 'all' && a.dataset.filter === 'all')) {
+      a.classList.add('active');
+    }
+  });
+
+  // カテゴリリンクのactiveクラス
+  document.querySelectorAll('.category-list a[data-filter]').forEach(a => {
+    if (a.dataset.filter === currentCat) a.classList.add('active');
+  });
+
+  // 記事フィルタリング
+  const cards = document.querySelectorAll('article.card');
+  let visibleCount = 0;
+
+  if (currentCat !== 'all') {
+    // フィルターラベル表示
+    const label = document.getElementById('filter-label');
+    const labelText = document.getElementById('filter-label-text');
+    label.style.display = 'block';
+    labelText.textContent = catLabels[currentCat] || currentCat;
+
+    cards.forEach(card => {
+      if (card.dataset.cat === currentCat) {
+        card.style.display = '';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    if (visibleCount === 0) {
+      const noResults = document.createElement('div');
+      noResults.className = 'no-results';
+      noResults.textContent = 'このカテゴリにはまだ記事がありません。';
+      document.getElementById('main-articles').appendChild(noResults);
+    }
+  }
+
+  // カテゴリーカウント（実際のdata-cat属性から算出）
+  const counts = { pmdd: 0, career: 0, tools: 0, daily: 0 };
+  cards.forEach(card => {
+    const cat = card.dataset.cat;
+    if (counts[cat] !== undefined) counts[cat]++;
+  });
+  Object.entries(counts).forEach(([cat, count]) => {
+    const el = document.getElementById('count-' + cat);
+    if (el) el.textContent = count;
+  });
+})();
+</script>
 
 </body>
 </html>
