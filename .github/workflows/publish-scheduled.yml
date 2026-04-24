@@ -1,0 +1,50 @@
+name: 予約投稿の自動公開
+
+on:
+  schedule:
+    - cron: '0 15 * * *'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: 今日の予約記事を公開
+        run: |
+          TODAY=$(date -u '+%Y-%m-%d')
+          echo "今日の日付: $TODAY"
+          
+          if [ ! -d "drafts" ]; then
+            echo "draftsフォルダがありません。スキップします。"
+            exit 0
+          fi
+          
+          FOUND=0
+          for file in drafts/scheduled-${TODAY}-*.html; do
+            if [ -f "$file" ]; then
+              filename=$(basename "$file")
+              slug=$(echo "$filename" | sed "s/scheduled-${TODAY}-//")
+              echo "公開: $filename → articles/$slug"
+              mv "$file" "articles/$slug"
+              FOUND=1
+            fi
+          done
+          
+          if [ $FOUND -eq 0 ]; then
+            echo "今日公開予定の記事はありません。"
+          fi
+
+      - name: 変更をコミット
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "変更なし"
+          else
+            git add -A
+            git commit -m "予約投稿を公開: $(date -u '+%Y-%m-%d')"
+            git push
+          fi
