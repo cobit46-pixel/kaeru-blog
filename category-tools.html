@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="使ってるもの・試したものに関する記事一覧 | かえるのきろく">
+  <title>使ってるもの・試したもの | かえるのきろく</title>
+  <style>
+:root{--green:#5a8a6e;--light:#f0f6f2;--accent:#a8c5b0;--text:#2e3b30;--muted:#7a927e;--white:#ffffff;--border:#d4e5da;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hiragino Kaku Gothic ProN','メイリオ',sans-serif;background:var(--light);color:var(--text);line-height:1.8;}
+header{background:var(--white);border-bottom:2px solid var(--accent);padding:20px 24px;text-align:center;}
+header h1{font-size:1.8rem;color:var(--green);letter-spacing:.08em;}
+header p{color:var(--muted);font-size:.85rem;margin-top:4px;}
+nav{background:var(--green);display:flex;justify-content:center;flex-wrap:wrap;}
+nav a{color:var(--white);text-decoration:none;padding:10px 20px;font-size:.88rem;display:inline-block;transition:background .2s;}
+nav a:hover{background:rgba(255,255,255,.15);}
+.container{max-width:860px;margin:0 auto;padding:32px 16px;}
+.page-title{font-size:1.4rem;color:var(--green);margin-bottom:8px;}
+.page-desc{font-size:.88rem;color:var(--muted);margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.article-list{display:flex;flex-direction:column;gap:16px;}
+.card{background:var(--white);border-radius:12px;padding:24px;border:1px solid var(--border);transition:box-shadow .2s;}
+.card:hover{box-shadow:0 4px 16px rgba(90,138,110,.12);}
+.card-meta{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+.tag{display:inline-block;background:var(--light);color:var(--green);border:1px solid var(--accent);border-radius:20px;padding:2px 10px;font-size:.75rem;font-weight:bold;}
+.date{color:var(--muted);font-size:.78rem;}
+.card h2{font-size:1.05rem;line-height:1.5;margin-bottom:6px;}
+.card h2 a{color:var(--text);text-decoration:none;}
+.card h2 a:hover{color:var(--green);}
+.card p{font-size:.85rem;color:var(--muted);line-height:1.7;}
+.read-more{display:inline-block;margin-top:10px;font-size:.82rem;color:var(--green);text-decoration:none;border-bottom:1px solid var(--accent);}
+.back-link{display:inline-block;margin-top:24px;color:var(--green);text-decoration:none;font-size:.85rem;}
+.loading{color:var(--muted);font-size:.88rem;padding:16px 0;}
+footer{background:var(--green);color:rgba(255,255,255,.8);text-align:center;padding:20px;font-size:.78rem;margin-top:40px;}
+footer a{color:rgba(255,255,255,.7);text-decoration:none;margin:0 8px;}
+</style>
+</head>
+<body>
+<header>
+  <h1><a href="/index.html" style="color:inherit;text-decoration:none;">🐸 かえるのきろく</a></h1>
+  <p>PMDD・生理・キャリア・転職 — 体と心の話を正直に</p>
+</header>
+<nav>
+  <a href="/index.html">ホーム</a>
+  <a href="/about.html">このブログについて</a>
+</nav>
+<div class="container">
+  <h1 class="page-title">📂 使ってるもの・試したもの</h1>
+  <p class="page-desc">「使ってるもの・試したもの」カテゴリーの記事一覧です。<span id="articleCount" style="font-weight:700;color:var(--green);"></span></p>
+  <div class="article-list" id="articleList">
+    <p class="loading">記事を読み込み中...</p>
+  </div>
+  <a href="/index.html" class="back-link">← トップページに戻る</a>
+</div>
+<footer>
+  <p>© 2026 かえるのきろく</p>
+  <p style="margin-top:8px;"><a href="/privacy.html">プライバシーポリシー</a><a href="/disclaimer.html">免責事項</a><a href="/contact.html">お問い合わせ</a></p>
+  <p style="margin-top:8px;font-size:.72rem;opacity:.6;">※当ブログにはアフィリエイト広告が含まれることがあります</p>
+</footer>
+<script>
+(async function() {
+  const TAGS = ["レビュー", "使ってみた"];
+  const listEl = document.getElementById('articleList');
+  const countEl = document.getElementById('articleCount');
+
+  try {
+    // index.htmlを取得して記事カードをパース
+    const res = await fetch('/index.html');
+    const html = await res.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const cards = doc.querySelectorAll('article.card');
+
+    const matched = [];
+    cards.forEach(card => {
+      const tagEls = card.querySelectorAll('.tag');
+      const cardTags = Array.from(tagEls).map(t => t.textContent.trim());
+      const match = cardTags.some(t => TAGS.some(ct => t.includes(ct) || ct.includes(t)));
+      if (match) matched.push(card.outerHTML);
+    });
+
+    if (matched.length === 0) {
+      listEl.innerHTML = '<p style="color:var(--muted);font-size:.88rem;">このカテゴリーの記事はまだありません。</p>';
+    } else {
+      listEl.innerHTML = matched.join('');
+      if (countEl) countEl.textContent = matched.length + '件';
+    }
+  } catch(e) {
+    listEl.innerHTML = '<p style="color:var(--muted);font-size:.88rem;">記事の読み込みに失敗しました。</p>';
+  }
+})();
+</script>
+</body>
+</html>
