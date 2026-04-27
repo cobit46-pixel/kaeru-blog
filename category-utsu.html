@@ -46,7 +46,7 @@ footer a{color:rgba(255,255,255,.7);text-decoration:none;margin:0 8px;}
 </nav>
 <div class="container">
   <h1 class="page-title">📂 うつ・気分の波</h1>
-  <p class="page-desc">「うつ・気分の波」カテゴリーの記事一覧です。<span id="articleCount" style="font-weight:700;color:var(--green);"></span></p>
+  <p class="page-desc">「うつ・気分の波」カテゴリーの記事一覧です。<span id="articleCount" style="font-weight:700;color:var(--green);margin-left:4px;"></span></p>
   <div class="article-list" id="articleList">
     <p class="loading">記事を読み込み中...</p>
   </div>
@@ -59,12 +59,11 @@ footer a{color:rgba(255,255,255,.7);text-decoration:none;margin:0 8px;}
 </footer>
 <script>
 (async function() {
-  const TAGS = ["うつ", "気分障害", "うつ病"];
+  const KEYWORDS = ["うつ", "鬱", "気分", "落ち込み", "メンタル", "抑うつ"];
   const listEl = document.getElementById('articleList');
   const countEl = document.getElementById('articleCount');
 
   try {
-    // index.htmlを取得して記事カードをパース
     const res = await fetch('/index.html');
     const html = await res.text();
     const parser = new DOMParser();
@@ -73,9 +72,11 @@ footer a{color:rgba(255,255,255,.7);text-decoration:none;margin:0 8px;}
 
     const matched = [];
     cards.forEach(card => {
-      const tagEls = card.querySelectorAll('.tag');
-      const cardTags = Array.from(tagEls).map(t => t.textContent.trim());
-      const match = cardTags.some(t => TAGS.some(ct => t.includes(ct) || ct.includes(t)));
+      // タイトルと本文テキストでキーワードマッチ
+      const cardText = card.textContent || '';
+      const titleEl = card.querySelector('h2');
+      const titleText = titleEl ? titleEl.textContent : '';
+      const match = KEYWORDS.some(kw => titleText.includes(kw) || cardText.includes(kw));
       if (match) matched.push(card.outerHTML);
     });
 
